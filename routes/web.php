@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\CommunityPostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
     Route::resource('communities', CommunityController::class);
+    Route::resource('communities.posts', CommunityPostController::class);
 });
 
 require __DIR__ . '/auth.php';

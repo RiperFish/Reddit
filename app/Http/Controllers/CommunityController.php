@@ -44,7 +44,8 @@ class CommunityController extends Controller
         $community = Community::create($request->validated() + ['user_id' => auth()->id()]);
         $community->topics()->attach($request->topics);
 
-        return redirect()->route('communities.show', $community);
+        //return redirect()->route('communities.show', $community);
+        return redirect()->route('communities.index', $community)->with('message', 'Community successfully created');
     }
 
     /**
@@ -55,7 +56,7 @@ class CommunityController extends Controller
      */
     public function show(Community $community)
     {
-        return $community->name;
+        return view('communities.show', compact('community'));
     }
 
     /**
@@ -89,7 +90,7 @@ class CommunityController extends Controller
         $community->update($request->validated());
         $community->topics()->sync($request->topics);
 
-        return redirect()->route('communities.index');
+        return redirect()->route('communities.index')->with('message', 'Successfully updated');
     }
 
     /**
@@ -104,7 +105,6 @@ class CommunityController extends Controller
             abort(403);
         }
         $community->delete();
-        return redirect()->route('communities.index');
-
+        return redirect()->route('communities.index')->with('message', 'Successfully deleted');
     }
 }

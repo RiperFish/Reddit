@@ -1,0 +1,58 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __($community->name)  }}
+        </h2>
+
+    </x-slot>
+    <h1>{{ Auth::user()->name }}</h1>
+    <div class="max-w-7xl mx-auto border p-4 mt-3">
+        @if (session('message'))
+        <div class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3 mb-6" role="alert">
+            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z" />
+            </svg>
+            <p>{{session('message')}}</p>
+        </div>
+        @endif
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <form class=" mx-auto w-1/2" method="POST" action="{{ route('communities.posts.store', $community) }}">
+            @csrf
+
+            <!-- Name -->
+            <div>
+                <x-label for="title" :value="__('Title*')" />
+
+                <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
+            </div>
+
+            <!-- description -->
+            <div class="mt-4">
+                <x-label for="post_text" :value="__('Post Content')" />
+
+                <x-textarea id="post_text" class="block mt-1 w-full" type="text" name="post_text" :value="old('post_text')" />
+            </div>
+
+            <!-- Image -->
+            <div class="mt-4">
+                <x-label for="post_image" :value="__('Post Image')" />
+                <x-input type="file" name="post_image" />
+            </div>
+
+            <!-- URL -->
+            <div class="mt-4">
+                <x-label for="post_url" :value="__('URL Link')" />
+
+                <x-input id="post_url" class="block mt-1 w-full" type="text" name="post_url" :value="old('post_url')" />
+            </div>
+            <div class="flex items-center justify-end mt-4">
+                <x-button class="ml-4">
+                    {{ __('Create Post') }}
+                </x-button>
+            </div>
+        </form>
+    </div>
+
+
+</x-app-layout>
