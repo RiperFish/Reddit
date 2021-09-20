@@ -15,8 +15,36 @@
             <p>{{session('message')}}</p>
         </div>
         @endif
+        <!-- Create post btn -->
         <a href="{{route('communities.posts.create',$community)}}" class=" bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full">New Post</a>
+        <div class=" mt-5 grid grid-cols-2">
+            <div>
+                <!-- Show all posts of that community -->
+                @forelse ($posts as $post)
+                <div class="text-left shadow-sm bg-gray-100 rounded-3xl p-5 mb-3">
+                    <div class="w-full">
+                        <p class="mb-4 text-sm">Posted by u/{{$post->author_name}} {{$post->created_at->diffForHumans()}}</p>
+                        <h2 class=" py-1 rounded mb-2 font-semibold text-2xl"><a class="w-full block" href="{{route('communities.posts.show',[$community, $post])}}">{{$post->title}}</a></h2>
 
+                        <p class=" bg-gray-100 p-1 rounded">{{ Str::words($post->post_text, 40)}}</p>
+                    </div>
+                    <div class="flex mt-4">
+                        <a href="{{route('communities.posts.edit', [$community, $post])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-3">Edit</a>
+                        <form class="" method="POST" action="{{ route('communities.posts.destroy',[$community, $post]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                @empty
+                <p>No posts</p>
+                @endforelse
+
+                {{$posts->links()}}
+            </div>
+            <div></div>
+        </div>
     </div>
 
 

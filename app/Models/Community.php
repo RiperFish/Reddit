@@ -36,4 +36,8 @@ class Community extends Model
             ]
         ];
     }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

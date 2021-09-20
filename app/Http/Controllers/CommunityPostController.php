@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Community;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommunityPostController extends Controller
@@ -38,6 +39,7 @@ class CommunityPostController extends Controller
     {
         $community->posts()->create([
             'user_id' => auth()->id(),
+            'author_name' => auth()->user()->name,
             'title' => $request->title,
             'post_text' => $request->post_text ?? null,
             'post_image' => $request->post_image ?? null,
@@ -53,9 +55,10 @@ class CommunityPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Community $community, Post $post)
     {
-        //
+        //dd($post);
+        return view('posts.show', compact('community', 'post'));
     }
 
     /**

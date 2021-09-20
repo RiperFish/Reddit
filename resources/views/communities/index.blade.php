@@ -18,10 +18,10 @@
         <div class=" mt-5 grid grid-cols-2">
             <div>
                 @foreach ($communities as $community)
-                <div class="text-left shadow-sm bg-gray-200 rounded-md p-3 mb-3">
+                <div class="text-left shadow-sm bg-gray-100 rounded-3xl p-5 mb-3">
                     <div class="w-full">
                         <x-label :value="__('Name :')" />
-                        <h2 class=" bg-gray-100 p-1 rounded mb-2"><a href="{{route('communities.show', $community)}}">{{$community->name}}</a></h2>
+                        <h2 class=" bg-gray-100 p-1 rounded mb-2"><a class="w-full block" href="{{route('communities.show', $community)}}">{{$community->name}}</a></h2>
                         <x-label :value="__('Description : ')" />
                         <p class=" bg-gray-100 p-1 rounded">{{$community->description}}</p>
                     </div>
