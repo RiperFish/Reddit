@@ -5,7 +5,7 @@
         </h2>
         
     </x-slot>
-    {{ Auth::user() }}
+    <!-- {{ Auth::user() }} -->
 
 </x-app-layout>
 
